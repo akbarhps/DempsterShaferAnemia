@@ -1,7 +1,7 @@
 data class Symptom(
     val code: String,
     val name: String,
-    val weight: Double,
+    val value: Double,
     var diseases: List<Disease>,
 ) {
     companion object {

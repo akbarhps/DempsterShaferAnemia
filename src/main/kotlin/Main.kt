@@ -1,216 +1,247 @@
-data class Density(
-    val code: String,
-    val symptom: Symptom?,
-    var value: Double,
+val symptoms: List<Symptom> = listOf(
+    Symptom(
+        code = "1",
+        name = "Nafsu Makan Berkurang",
+        value = 0.2,
+        diseases = listOf(
+            Disease.SARIAWAN,
+            Disease.INCLUSION_BODY_DISEASE,
+            Disease.SEMBELIT,
+            Disease.PENYAKIT_KULIT_PARASIT,
+            Disease.INFLUENZA
+        )
+    ),
+    Symptom(
+        code = "2",
+        name = "Wajah Terlihat Lesu",
+        value = 0.2,
+        diseases = listOf(Disease.INCLUSION_BODY_DISEASE, Disease.SEMBELIT, Disease.PENYAKIT_KULIT_PARASIT)
+    ),
+    Symptom(
+        code = "3",
+        name = "Berat Badan Menurun",
+        value = 0.5,
+        diseases = listOf(Disease.SARIAWAN, Disease.PENYAKIT_KULIT_PARASIT)
+    ),
+    Symptom(
+        code = "4",
+        name = "Pembengkakan Pada Mulut",
+        value = 0.5,
+        diseases = listOf(Disease.SARIAWAN, Disease.INFLUENZA)
+    ),
+    Symptom(
+        code = "5",
+        name = "Pembengkakan Pada Gusi",
+        value = 0.8,
+        diseases = listOf(Disease.SARIAWAN)
+    ),
+    Symptom(
+        code = "6",
+        name = "Perubahan Pada Warna Mulut",
+        value = 0.7,
+        diseases = listOf(Disease.SARIAWAN)
+    ),
+    Symptom(
+        code = "7",
+        name = "Badan Terlihat Membengkak",
+        value = 0.4,
+        diseases = listOf(Disease.SEMBELIT)
+    ),
+    Symptom(
+        code = "8",
+        name = "BAB Jarang",
+        value = 0.5,
+        diseases = listOf(Disease.SEMBELIT)
+    ),
+    Symptom(
+        code = "9",
+        name = "BAB Encer",
+        value = 0.1,
+        diseases = listOf(Disease.SEMBELIT)
+    ),
+    Symptom(
+        code = "10",
+        name = "Muntah-muntah",
+        value = 0.5,
+        diseases = listOf(Disease.PENYAKIT_KULIT_PARASIT)
+    ),
+    Symptom(
+        code = "11",
+        name = "Terdapat Kutu/Caplak di Badan",
+        value = 0.9,
+        diseases = listOf(Disease.PENYAKIT_KULIT_PARASIT)
+    ),
+    Symptom(
+        code = "12",
+        name = "Terdapat Cairan Pada Hidung",
+        value = 0.8,
+        diseases = listOf(Disease.INFLUENZA)
+    ),
+    Symptom(
+        code = "13",
+        name = "Bernafas Dengan Mulut Terbuka",
+        value = 0.7,
+        diseases = listOf(Disease.INFLUENZA)
+    ),
+    Symptom(
+        code = "14",
+        name = "Keluar Cairan Dari Hidung/Mulut",
+        value = 0.9,
+        diseases = listOf(Disease.INFLUENZA)
+    ),
+    Symptom(
+        code = "15",
+        name = "Nafas yang Berbunyi (Mendengkur)",
+        value = 0.8,
+        diseases = listOf(Disease.INFLUENZA)
+    ),
+    Symptom(
+        code = "16",
+        name = "Selalu Melihat Keatas (Stargazing)",
+        value = 0.9,
+        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+    ),
+    Symptom(
+        code = "17",
+        name = "Tidak Dapat Berdiri",
+        value = 0.6,
+        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+    ),
+    Symptom(
+        code = "18",
+        name = "Selalu Tergolek Kearah Belakang",
+        value = 0.8,
+        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+    ),
+    Symptom(
+        code = "19",
+        name = "Tidak Merespon Gerakan",
+        value = 0.2,
+        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+    ),
+    Symptom(
+        code = "20",
+        name = "Besar Mata Pupil Tidak Seimbang",
+        value = 0.5,
+        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+    ),
+    Symptom(
+        code = "21",
+        name = "Mengalami Kelumpuhan",
+        value = 0.6,
+        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+    ),
+    Symptom(
+        code = "22",
+        name = "Lendir Kental Dihidung",
+        value = 0.9,
+        diseases = listOf(Disease.INFLUENZA)
+    ),
+    Symptom(
+        code = "23",
+        name = "Bengkak Dibawah Mulut",
+        value = 0.6,
+        diseases = listOf(Disease.INFLUENZA)
+    ),
+    Symptom(
+        code = "24",
+        name = "Ada Massa Padat Di Kloaka (Anus)",
+        value = 0.9,
+        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+    ),
+    Symptom(
+        code = "25",
+        name = "Rahang Bawah Bernanah",
+        value = 0.7,
+        diseases = listOf(Disease.SARIAWAN)
+    ),
+    Symptom(
+        code = "26",
+        name = "Ada Plak Kemerahan Di Gusi",
+        value = 0.9,
+        diseases = listOf(Disease.SARIAWAN)
+    ),
+    Symptom(
+        code = "27",
+        name = "Ada Benjol Dirahang Atas",
+        value = 0.4,
+        diseases = listOf(Disease.SARIAWAN)
+    ),
+    Symptom(
+        code = "28",
+        name = "Jalannya Berputar-putar",
+        value = 0.7,
+        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+    ),
+    Symptom(
+        code = "29",
+        name = "Ada Jamur Dimulut",
+        value = 0.2,
+        diseases = listOf(Disease.SARIAWAN, Disease.INFLUENZA)
+    ),
+    Symptom(
+        code = "30",
+        name = "Kepala Terpelinting",
+        value = 0.4,
+        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+    ),
 )
 
-data class CombinedDensity(
-    var code: String = "",
-    var symptom: Symptom? = null,
-    var value: Double = 0.0,
-)
+fun main() {
+    val selectedSymptoms = symptoms.toMutableList()
 
-
-fun main(args: Array<String>) {
-
-    val symptoms: List<Symptom> = listOf(
-        Symptom(
-            code = "1",
-            name = "Nafsu Makan Berkurang",
-            weight = 0.2,
-            diseases = listOf(
-                Disease.SARIAWAN,
-                Disease.INCLUSION_BODY_DISEASE,
-                Disease.SEMBELIT,
-                Disease.PENYAKIT_KULIT_PARASIT,
-                Disease.INFLUENZA
-            )
-        ),
-        Symptom(
-            code = "2",
-            name = "Wajah Terlihat Lesu",
-            weight = 0.2,
-            diseases = listOf(Disease.INCLUSION_BODY_DISEASE, Disease.SEMBELIT, Disease.PENYAKIT_KULIT_PARASIT)
-        ),
-        Symptom(
-            code = "3",
-            name = "Berat Badan Menurun",
-            weight = 0.2,
-            diseases = listOf(Disease.SARIAWAN, Disease.INFLUENZA)
-        ),
-        Symptom(
-            code = "4",
-            name = "Pembengkakan Pada Mulut",
-            weight = 0.2,
-            diseases = listOf(Disease.SARIAWAN, Disease.INFLUENZA)
-        ),
-        Symptom(
-            code = "5",
-            name = "Pembengkakan Pada Gusi",
-            weight = 0.2,
-            diseases = listOf(Disease.SARIAWAN)
-        ),
-        Symptom(
-            code = "6",
-            name = "Perubahan Pada Warna Mulut",
-            weight = 0.2,
-            diseases = listOf(Disease.SARIAWAN)
-        ),
-        Symptom(
-            code = "7",
-            name = "Badan Terlihat Membengkak",
-            weight = 0.2,
-            diseases = listOf(Disease.SEMBELIT)
-        ),
-        Symptom(
-            code = "8",
-            name = "BAB Jarang",
-            weight = 0.2,
-            diseases = listOf(Disease.SEMBELIT)
-        ),
-        Symptom(
-            code = "9",
-            name = "BAB Encer",
-            weight = 0.2,
-            diseases = listOf(Disease.SEMBELIT)
-        ),
-        Symptom(
-            code = "10",
-            name = "Muntah-muntah",
-            weight = 0.2,
-            diseases = listOf(Disease.PENYAKIT_KULIT_PARASIT)
-        ),
-        Symptom(
-            code = "11",
-            name = "Terdapat Kutu/Caplak di Badan",
-            weight = 0.2,
-            diseases = listOf(Disease.PENYAKIT_KULIT_PARASIT)
-        ),
-        Symptom(
-            code = "12",
-            name = "Terdapat Cairan Pada Hidung",
-            weight = 0.2,
-            diseases = listOf(Disease.INFLUENZA)
-        ),
-        Symptom(
-            code = "13",
-            name = "Bernafas Dengan Mulut Terbuka",
-            weight = 0.2,
-            diseases = listOf(Disease.INFLUENZA)
-        ),
-        Symptom(
-            code = "14",
-            name = "Keluar Cairan Dari Hidung/Mulut",
-            weight = 0.2,
-            diseases = listOf(Disease.INFLUENZA)
-        ),
-        Symptom(
-            code = "15",
-            name = "Nafas yang Berbunyi (Mendengkur)",
-            weight = 0.2,
-            diseases = listOf(Disease.INFLUENZA)
-        ),
-        Symptom(
-            code = "16",
-            name = "Selalu Melihat Keatas (Stargazing)",
-            weight = 0.2,
-            diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
-        ),
-        Symptom(
-            code = "17",
-            name = "Tidak Dapat Berdiri",
-            weight = 0.2,
-            diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
-        ),
-        Symptom(
-            code = "18",
-            name = "Selalu Tergolek Kearah Belakang",
-            weight = 0.2,
-            diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
-        ),
-        Symptom(
-            code = "19",
-            name = "Tidak Merespon Gerakan",
-            weight = 0.2,
-            diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
-        ),
-        Symptom(
-            code = "20",
-            name = "Besar Mata Pupil Tidak Seimbang",
-            weight = 0.2,
-            diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
-        ),
-        Symptom(
-            code = "21",
-            name = "Mengalami Kelumpuhan",
-            weight = 0.2,
-            diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
-        ),
-        Symptom(
-            code = "22",
-            name = "Lendir Kental Dihidung",
-            weight = 0.2,
-            diseases = listOf(Disease.INFLUENZA)
-        ),
-        Symptom(
-            code = "23",
-            name = "Bengkak Dibawah Mulut",
-            weight = 0.2,
-            diseases = listOf(Disease.INFLUENZA)
-        ),
-        Symptom(
-            code = "24",
-            name = "Ada Massa Padat Di Kloaka (Anus)",
-            weight = 0.2,
-            diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
-        ),
-        Symptom(
-            code = "25",
-            name = "Rahang Bawah Bernanah",
-            weight = 0.2,
-            diseases = listOf(Disease.SARIAWAN)
-        ),
-        Symptom(
-            code = "26",
-            name = "Ada Plak Kemerahan Di Gusi",
-            weight = 0.2,
-            diseases = listOf(Disease.SARIAWAN)
-        ),
-        Symptom(
-            code = "27",
-            name = "Ada Benjol Dirahang Atas",
-            weight = 0.2,
-            diseases = listOf(Disease.SARIAWAN)
-        ),
-        Symptom(
-            code = "28",
-            name = "Jalannya Berputar-putar",
-            weight = 0.2,
-            diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
-        ),
-        Symptom(
-            code = "29",
-            name = "Ada Jamur Dimulut",
-            weight = 0.2,
-            diseases = listOf(Disease.SARIAWAN, Disease.INFLUENZA)
-        ),
-        Symptom(
-            code = "30",
-            name = "Kepala Terpelinting",
-            weight = 0.2,
-            diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
-        ),
-    )
-
-    val selectedSymptoms = mutableListOf(symptoms[0], symptoms[1], symptoms[2])
-//    if (selectedSymptoms.size < 2) return
+    if (selectedSymptoms.size < 2) {
+        val current = selectedSymptoms[0]
+        val diseases = current.diseases.toString()
+        println("Penyakit $diseases dengan presentase ${current.value}")
+        return
+    }
 
     var densities: MutableList<Density> = mutableListOf(
-        generateSingleDensity(selectedSymptoms)!!,
-        generateSingleDensity(selectedSymptoms)!!,
+        generateDensityFromSymptom(selectedSymptoms)!!,
     )
 
-    val combinedDensityTable: MutableList<MutableList<CombinedDensity>> = mutableListOf(
+    while (selectedSymptoms.size > 0) {
+        densities.add(generateDensityFromSymptom(selectedSymptoms)!!)
+
+        val densityTable: MutableList<MutableList<Density>> = generateCombinedDensityTable(densities)
+        val newDensities: MutableList<Density> = generateDensitiesFromCombinedTable(densityTable)
+        val totalConflict: Double = countTotalConflict(newDensities)
+
+        densities = calculateDempsterShafer(newDensities, totalConflict).toMutableList()
+    }
+
+    densities.sortByDescending { it.value }
+    densities.forEach {
+        val diseases = it.diseases.toString()
+        println("Penyakit $diseases dengan presentase ${it.value * 100}")
+    }
+}
+
+/**
+ * return density from first selected symptom
+ * and delete the symptom from selected symptom
+ */
+private fun generateDensityFromSymptom(symptoms: MutableList<Symptom>): Density? {
+    if (symptoms.isEmpty()) return null
+
+    val current = symptoms[0]
+    val density = Density(
+        code = current.code,
+        diseases = current.diseases,
+        value = current.value,
+    )
+
+    symptoms.remove(current)
+    return density
+}
+
+/**
+ * generate combined density table
+ * from densities
+ */
+fun generateCombinedDensityTable(densities: MutableList<Density>): MutableList<MutableList<Density>> {
+    val combinedDensityTable: MutableList<MutableList<Density>> = mutableListOf(
         generateConstantCombinedDensity(densities)
     )
 
@@ -219,45 +250,109 @@ fun main(args: Array<String>) {
     // extra loop for add theta value (check table)
     for (i in 0..densities.size) {
         var currentValue: Double
-        val currentCombinedRow = mutableListOf<CombinedDensity>()
+        val currentCombinedRow = mutableListOf<Density>()
         val currentDensity = if (i >= densities.size) null else densities[i].copy()
 
         totalValue += currentDensity?.value ?: 0.0
 
-        val currentCombinedDensity = if (i >= densities.size) {
+        // base combined is the first density in every row
+        val baseCombinedDensity = if (i >= densities.size) {
             currentValue = 1 - totalValue
-            CombinedDensity("(Theta)", null, currentValue)
+            Density(
+                code = "(Theta)",
+                diseases = null,
+                value = currentValue
+            )
         } else {
             currentValue = currentDensity!!.value
-            CombinedDensity(currentDensity.code, currentDensity.symptom, currentValue)
+            Density(
+                code = currentDensity.code,
+                diseases = currentDensity.diseases,
+                value = currentValue
+            )
         }
 
-        // calculate next combined density (column 1...n)
+        currentCombinedRow.add(baseCombinedDensity)
+
+        // calculate combined density (column 1...n)
         combinedDensityTable[0].forEachIndexed { j, second ->
-            val combinedDensity = CombinedDensity(
+            val combinedDensity = Density(
                 code = "${i}${j}",
                 value = currentValue * second.value,
-                symptom = combineSimilarSymptom(currentDensity?.symptom, second.symptom)
+                diseases = combineDiseases(currentDensity?.diseases, second.diseases)
             )
+
             currentCombinedRow.add(combinedDensity)
         }
 
-        currentCombinedRow.add(currentCombinedDensity)
         combinedDensityTable.add(currentCombinedRow)
     }
 
-    densities.clear()
+    return combinedDensityTable
+}
 
-    combinedDensityTable.removeAt(0)
-    combinedDensityTable.forEach {
+/**
+ * intersect diseases if there are same values
+ */
+private fun combineDiseases(first: List<Disease>?, second: List<Disease>?): List<Disease>? {
+    if (first != null && second != null) {
+        return Symptom.intersectDisease(first, second)
+    }
+
+    if (first != null) {
+        return first.toList()
+    }
+
+    if (second != null) {
+        return second.toList()
+    }
+
+    return null
+}
+
+/**
+ * Generate constant combined density (row 1 in the combined density table)
+ * and remove its value from original densities
+ */
+private fun generateConstantCombinedDensity(densities: MutableList<Density>): MutableList<Density> {
+    val lastDensity = densities[densities.size - 1]
+
+    val result = mutableListOf(
+        Density(
+            code = lastDensity.code,
+            diseases = lastDensity.diseases,
+            value = lastDensity.value
+        ),
+        Density(
+            code = "${lastDensity.code} (Theta)",
+            diseases = null,
+            value = 1 - lastDensity.value
+        ),
+    )
+
+    densities.removeAt(densities.size - 1)
+    return result
+}
+
+/**
+ * remove base density
+ * and take combined density from table
+ */
+fun generateDensitiesFromCombinedTable(densityTable: MutableList<MutableList<Density>>): MutableList<Density> {
+    val densities = mutableListOf<Density>()
+
+    densityTable.removeAt(0)
+    densityTable.forEach {
         it.removeAt(0)
     }
 
-    combinedDensityTable.forEach { row ->
-        row.forEach { combinedDensity ->
+    densityTable.forEach { row ->
+        for (combinedDensity in row) {
+            if (combinedDensity.diseases == null) continue
+
             val density = Density(
                 code = combinedDensity.code,
-                symptom = combinedDensity.symptom,
+                diseases = combinedDensity.diseases,
                 value = combinedDensity.value,
             )
 
@@ -265,90 +360,56 @@ fun main(args: Array<String>) {
         }
     }
 
-    densities = combineSimilarDensities(densities).toMutableList()
-    println("end")
+    densities.sortBy { it.diseases?.size }
+    return densities
 }
 
 /**
- * return density from first selected symptom
- * and delete the symptom from selected symptom
+ * if there is a density with no disease
+ * then it is a conflict, count all conflict from
+ * densities
  */
-private fun generateSingleDensity(selectedSymptom: MutableList<Symptom>): Density? {
-    if (selectedSymptom.isEmpty()) return null
+fun countTotalConflict(densities: MutableList<Density>): Double {
+    var totalConflict = 0.0
 
-    val current = selectedSymptom[0]
-    val density = Density(
-        code = current.code,
-        symptom = current,
-        value = current.weight,
-    )
+    for (density in densities) {
+        if (density.diseases == null) continue
+        if (density.diseases.isNotEmpty()) continue
 
-    selectedSymptom.remove(current)
-    return density
-}
-
-/**
- * Generate constant combined density (row 1 in the combined density table)
- * and remove its value from original densities
- * @param densities
- */
-private fun generateConstantCombinedDensity(densities: MutableList<Density>): MutableList<CombinedDensity> {
-    val lastDensity = densities[densities.size - 1]
-    val result = mutableListOf(
-        CombinedDensity(code = lastDensity.code, symptom = lastDensity.symptom, value = lastDensity.value),
-        CombinedDensity(code = "${lastDensity.code} (Theta)", symptom = null, value = 1 - lastDensity.value),
-    )
-
-    densities.remove(lastDensity)
-    return result
-}
-
-/**
- * check symptom similiar diseases
- * and then combine it
- */
-private fun combineSimilarSymptom(first: Symptom?, second: Symptom?): Symptom? {
-    if (first != null && second != null) {
-        return first.copy(
-            diseases = Symptom.intersectDisease(first.diseases, second.diseases)
-        )
+        totalConflict += density.value
     }
 
-    if (first != null) {
-        return first.copy()
-    }
-
-    if (second != null) {
-        return second.copy()
-    }
-
-    return null
+    return totalConflict
 }
 
 /**
- * combine density with similar disease and then
- * add its value
+ * add density value with the same disease
+ * and divide by (1 - totalConflict)
+ *
+ * (totalValue) / (1 - totalConflict)
  */
-fun combineSimilarDensities(densities: List<Density>): List<Density> {
+fun calculateDempsterShafer(densities: List<Density>, totalConflict: Double): List<Density> {
     val result = mutableMapOf<String, Density>()
     val checkedId = mutableMapOf<String, Boolean>()
 
     for (d1 in densities) {
         if (checkedId[d1.code] == true) continue
-        checkedId[d1.code] = true
+        if (d1.diseases?.size == 0) continue
         result[d1.code] = d1
 
         for (d2 in densities) {
             if (checkedId[d2.code] == true) continue
             if (d1.code == d2.code) continue
-            if (d1.symptom?.diseases != d2.symptom?.diseases) continue
+            if (d1.diseases != d2.diseases) continue
 
             d1.value += d2.value
 
+            checkedId[d1.code] = true
             checkedId[d2.code] = true
             result[d1.code] = d1
         }
     }
 
+    result.forEach { it.value.value /= (1 - totalConflict) }
     return result.values.toList()
 }
