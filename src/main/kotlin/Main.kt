@@ -1,57 +1,15 @@
 data class Density(
     val code: String,
     val symptom: Symptom?,
-    var believe: Double,
-    var plau: Double,
+    var value: Double,
 )
 
 data class CombinedDensity(
     var code: String = "",
     var symptom: Symptom? = null,
     var value: Double = 0.0,
-    var taken: Boolean = false,
-) {
-    fun getSimilarDisease(combinedDensities: List<List<CombinedDensity>>): List<CombinedDensity> {
-        val densities = mutableListOf<CombinedDensity>()
+)
 
-        for (i in 1 until combinedDensities.size) {
-            for (j in 1 until combinedDensities[i].size) {
-                val current = combinedDensities[i][j]
-                if (!current.taken && current.symptom?.diseases == this.symptom?.diseases) {
-                    densities.add(current)
-                    current.taken = true
-                }
-            }
-        }
-
-        return densities
-    }
-}
-
-fun combinedSimilarDisease(densities: List<Density>): List<Density> {
-    val result = mutableMapOf<String, Density>()
-    val checkedId = mutableMapOf<String, Boolean>()
-
-    for (d1 in densities) {
-        if (checkedId[d1.code] == true) continue
-        result[d1.code] = d1
-
-        for (d2 in densities) {
-            if (checkedId[d2.code] == true) continue
-
-            if (d1.code != d2.code && d1.symptom?.diseases == d2.symptom?.diseases) {
-                d1.believe += d2.believe
-                d1.plau += d2.plau
-
-                checkedId[d1.code] = true
-                checkedId[d2.code] = true
-                result[d1.code] = d1
-            }
-        }
-    }
-
-    return result.values.toList()
-}
 
 fun main(args: Array<String>) {
 
@@ -244,104 +202,153 @@ fun main(args: Array<String>) {
         ),
     )
 
-    val selectedSymptoms: MutableList<Symptom> = mutableListOf(
-        symptoms[0], symptoms[1], symptoms[2]
+    val selectedSymptoms = mutableListOf(symptoms[0], symptoms[1], symptoms[2])
+//    if (selectedSymptoms.size < 2) return
+
+    var densities: MutableList<Density> = mutableListOf(
+        generateSingleDensity(selectedSymptoms)!!,
+        generateSingleDensity(selectedSymptoms)!!,
     )
 
-    var densities = mutableListOf(
-        getSingleDensity(selectedSymptoms)!!,
-        getSingleDensity(selectedSymptoms)!!,
+    val combinedDensityTable: MutableList<MutableList<CombinedDensity>> = mutableListOf(
+        generateConstantCombinedDensity(densities)
     )
-
-    val combinedDensities: MutableList<MutableList<CombinedDensity>> = mutableListOf()
-
-    val temp = densities[densities.size - 1]
-    combinedDensities.add(
-        mutableListOf(
-            CombinedDensity(code = temp.code, symptom = temp.symptom, value = temp.believe),
-            CombinedDensity(code = "${temp.code} (Theta)", symptom = null, value = 1 - temp.believe),
-        )
-    )
-    densities.remove(temp)
 
     var totalValue = 0.0
+
+    // extra loop for add theta value (check table)
     for (i in 0..densities.size) {
         var currentValue: Double
         val currentCombinedRow = mutableListOf<CombinedDensity>()
         val currentDensity = if (i >= densities.size) null else densities[i].copy()
 
-        totalValue += currentDensity?.believe ?: 0.0
+        totalValue += currentDensity?.value ?: 0.0
 
-        val baseCombinedDensity = if (i >= densities.size) {
+        val currentCombinedDensity = if (i >= densities.size) {
             currentValue = 1 - totalValue
             CombinedDensity("(Theta)", null, currentValue)
         } else {
-            currentValue = currentDensity!!.believe
+            currentValue = currentDensity!!.value
             CombinedDensity(currentDensity.code, currentDensity.symptom, currentValue)
         }
 
-        currentCombinedRow.add(baseCombinedDensity)
-
-        combinedDensities[0].forEachIndexed { j, it ->
+        // calculate next combined density (column 1...n)
+        combinedDensityTable[0].forEachIndexed { j, second ->
             val combinedDensity = CombinedDensity(
                 code = "${i}${j}",
-                value = currentValue * it.value
+                value = currentValue * second.value,
+                symptom = combineSimilarSymptom(currentDensity?.symptom, second.symptom)
             )
-
-            if (currentDensity?.symptom != null && it.symptom != null) {
-                combinedDensity.symptom = currentDensity.symptom.copy(
-                    diseases = Symptom.intersectDisease(
-                        currentDensity.symptom.diseases,
-                        it.symptom!!.diseases
-                    )
-                )
-            } else if (currentDensity?.symptom == null && it.symptom != null) {
-                combinedDensity.symptom = it.symptom!!.copy()
-            } else if (currentDensity?.symptom != null) {
-                combinedDensity.symptom = currentDensity.symptom.copy()
-            }
-
             currentCombinedRow.add(combinedDensity)
         }
 
-        combinedDensities.add(currentCombinedRow)
+        currentCombinedRow.add(currentCombinedDensity)
+        combinedDensityTable.add(currentCombinedRow)
     }
 
     densities.clear()
 
-    combinedDensities.removeAt(0)
-    combinedDensities.forEach {
+    combinedDensityTable.removeAt(0)
+    combinedDensityTable.forEach {
         it.removeAt(0)
     }
 
-    combinedDensities.forEach { row ->
+    combinedDensityTable.forEach { row ->
         row.forEach { combinedDensity ->
             val density = Density(
                 code = combinedDensity.code,
                 symptom = combinedDensity.symptom,
-                believe = combinedDensity.value,
-                plau = 1 - combinedDensity.value
+                value = combinedDensity.value,
             )
 
             densities.add(density)
         }
     }
 
-    densities = combinedSimilarDisease(densities).toMutableList()
+    densities = combineSimilarDensities(densities).toMutableList()
     println("end")
 }
 
-private fun getSingleDensity(selectedSymptom: MutableList<Symptom>): Density? {
+/**
+ * return density from first selected symptom
+ * and delete the symptom from selected symptom
+ */
+private fun generateSingleDensity(selectedSymptom: MutableList<Symptom>): Density? {
     if (selectedSymptom.isEmpty()) return null
 
     val current = selectedSymptom[0]
     val density = Density(
         code = current.code,
         symptom = current,
-        believe = current.weight,
-        plau = 1 - current.weight
+        value = current.weight,
     )
 
     selectedSymptom.remove(current)
     return density
+}
+
+/**
+ * Generate constant combined density (row 1 in the combined density table)
+ * and remove its value from original densities
+ * @param densities
+ */
+private fun generateConstantCombinedDensity(densities: MutableList<Density>): MutableList<CombinedDensity> {
+    val lastDensity = densities[densities.size - 1]
+    val result = mutableListOf(
+        CombinedDensity(code = lastDensity.code, symptom = lastDensity.symptom, value = lastDensity.value),
+        CombinedDensity(code = "${lastDensity.code} (Theta)", symptom = null, value = 1 - lastDensity.value),
+    )
+
+    densities.remove(lastDensity)
+    return result
+}
+
+/**
+ * check symptom similiar diseases
+ * and then combine it
+ */
+private fun combineSimilarSymptom(first: Symptom?, second: Symptom?): Symptom? {
+    if (first != null && second != null) {
+        return first.copy(
+            diseases = Symptom.intersectDisease(first.diseases, second.diseases)
+        )
+    }
+
+    if (first != null) {
+        return first.copy()
+    }
+
+    if (second != null) {
+        return second.copy()
+    }
+
+    return null
+}
+
+/**
+ * combine density with similar disease and then
+ * add its value
+ */
+fun combineSimilarDensities(densities: List<Density>): List<Density> {
+    val result = mutableMapOf<String, Density>()
+    val checkedId = mutableMapOf<String, Boolean>()
+
+    for (d1 in densities) {
+        if (checkedId[d1.code] == true) continue
+        checkedId[d1.code] = true
+        result[d1.code] = d1
+
+        for (d2 in densities) {
+            if (checkedId[d2.code] == true) continue
+            if (d1.code == d2.code) continue
+            if (d1.symptom?.diseases != d2.symptom?.diseases) continue
+
+            d1.value += d2.value
+
+            checkedId[d2.code] = true
+            result[d1.code] = d1
+        }
+    }
+
+    return result.values.toList()
 }
