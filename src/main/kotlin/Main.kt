@@ -15,7 +15,11 @@ val symptoms: List<Symptom> = listOf(
         code = "2",
         name = "Wajah Terlihat Lesu",
         value = 0.2,
-        diseases = listOf(Disease.INCLUSION_BODY_DISEASE, Disease.SEMBELIT, Disease.PENYAKIT_KULIT_PARASIT)
+        diseases = listOf(
+            Disease.INCLUSION_BODY_DISEASE,
+            Disease.SEMBELIT,
+            Disease.PENYAKIT_KULIT_PARASIT
+        )
     ),
     Symptom(
         code = "3",
@@ -219,8 +223,7 @@ fun main() {
 }
 
 /**
- * return density from first selected symptom
- * and delete the symptom from selected symptom
+ * return density from first symptom and delete it
  */
 private fun generateDensityFromSymptom(symptoms: MutableList<Symptom>): Density? {
     if (symptoms.isEmpty()) return null
@@ -245,6 +248,8 @@ fun generateCombinedDensityTable(densities: MutableList<Density>): MutableList<M
         generateConstantCombinedDensity(densities)
     )
 
+    // to calculate theta value
+    // 1 - totalValue
     var totalValue = 0.0
 
     // extra loop for add theta value (check table)
@@ -276,13 +281,13 @@ fun generateCombinedDensityTable(densities: MutableList<Density>): MutableList<M
 
         // calculate combined density (column 1...n)
         combinedDensityTable[0].forEachIndexed { j, second ->
-            val combinedDensity = Density(
-                code = "${i}${j}",
-                value = currentValue * second.value,
-                diseases = combineDiseases(currentDensity?.diseases, second.diseases)
+            currentCombinedRow.add(
+                Density(
+                    code = "${i}${j}",
+                    value = currentValue * second.value,
+                    diseases = combineDiseases(currentDensity?.diseases, second.diseases)
+                )
             )
-
-            currentCombinedRow.add(combinedDensity)
         }
 
         combinedDensityTable.add(currentCombinedRow)
@@ -296,7 +301,7 @@ fun generateCombinedDensityTable(densities: MutableList<Density>): MutableList<M
  */
 private fun combineDiseases(first: List<Disease>?, second: List<Disease>?): List<Disease>? {
     if (first != null && second != null) {
-        return Symptom.intersectDisease(first, second)
+        return first.intersect(second.toSet()).toList()
     }
 
     if (first != null) {
@@ -311,7 +316,8 @@ private fun combineDiseases(first: List<Disease>?, second: List<Disease>?): List
 }
 
 /**
- * Generate constant combined density (row 1 in the combined density table)
+ * take the last density and
+ * Generate constant density (row 1 in the combined density table)
  * and remove its value from original densities
  */
 private fun generateConstantCombinedDensity(densities: MutableList<Density>): MutableList<Density> {
@@ -365,9 +371,9 @@ fun generateDensitiesFromCombinedTable(densityTable: MutableList<MutableList<Den
 }
 
 /**
- * if there is a density with no disease
- * then it is a conflict, count all conflict from
- * densities
+ * if there is a density with empty disease
+ * then it is a conflict, count all conflict from densities
+ * if density is null then it is a theta
  */
 fun countTotalConflict(densities: MutableList<Density>): Double {
     var totalConflict = 0.0
@@ -390,22 +396,22 @@ fun countTotalConflict(densities: MutableList<Density>): Double {
  */
 fun calculateDempsterShafer(densities: List<Density>, totalConflict: Double): List<Density> {
     val result = mutableMapOf<String, Density>()
-    val checkedId = mutableMapOf<String, Boolean>()
+    val checked = mutableMapOf<String, Boolean>()
 
     for (d1 in densities) {
-        if (checkedId[d1.code] == true) continue
+        if (checked[d1.code] == true) continue
         if (d1.diseases?.size == 0) continue
         result[d1.code] = d1
 
         for (d2 in densities) {
-            if (checkedId[d2.code] == true) continue
+            if (checked[d2.code] == true) continue
             if (d1.code == d2.code) continue
             if (d1.diseases != d2.diseases) continue
 
             d1.value += d2.value
 
-            checkedId[d1.code] = true
-            checkedId[d2.code] = true
+            checked[d1.code] = true
+            checked[d2.code] = true
             result[d1.code] = d1
         }
     }
