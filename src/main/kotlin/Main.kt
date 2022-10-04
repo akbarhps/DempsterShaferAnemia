@@ -1,3 +1,5 @@
+// example from:
+// https://www.teamtrainit.com/demo/algoritma/dempster/perhitungan.php
 //val symptoms: List<Symptom> = listOf(
 //    Symptom(
 //        code = "1",
@@ -191,13 +193,17 @@
 //    ),
 //)
 
+// TODO: update all symptoms value to its real value
+// (currently all symptoms value are 0.2)
 val symptoms = listOf(
     Symptom(
         code = "G01",
         name = "Terasa lemas diseluruh tubuh",
         value = 0.2,
         diseases = listOf(
-            Disease.ANEMIA_APLASTIK, Disease.ANEMIA_DEFISIENSI_ZAT_BESI, Disease.ANEMIA_KRONIS
+            Disease.ANEMIA_APLASTIK,
+            Disease.ANEMIA_DEFISIENSI_ZAT_BESI,
+            Disease.ANEMIA_KRONIS
         ),
     ),
     Symptom(
@@ -205,7 +211,9 @@ val symptoms = listOf(
         name = "Merasa sakit kepala",
         value = 0.2,
         diseases = listOf(
-            Disease.ANEMIA_APLASTIK, Disease.ANEMIA_DEFISIENSI_ZAT_BESI, Disease.ANEMIA_KRONIS
+            Disease.ANEMIA_APLASTIK,
+            Disease.ANEMIA_DEFISIENSI_ZAT_BESI,
+            Disease.ANEMIA_KRONIS
         ),
     ),
     Symptom(
@@ -290,37 +298,6 @@ val symptoms = listOf(
     ),
 )
 
-fun main() {
-    val selectedSymptoms = symptoms.toMutableList()
-
-    if (selectedSymptoms.size < 2) {
-        val current = selectedSymptoms[0]
-        val diseases = current.diseases.toString()
-        println("Penyakit $diseases dengan presentase ${current.value}")
-        return
-    }
-
-    var densities: MutableList<Density> = mutableListOf(
-        generateDensityFromSymptom(selectedSymptoms)!!,
-    )
-
-    while (selectedSymptoms.size > 0) {
-        densities.add(generateDensityFromSymptom(selectedSymptoms)!!)
-
-        val densityTable: MutableList<MutableList<Density>> = generateCombinedDensityTable(densities)
-        val newDensities: MutableList<Density> = generateDensitiesFromCombinedDensityTable(densityTable)
-        val totalConflict: Double = calculateTotalConflict(newDensities)
-
-        densities = calculateDempsterShafer(newDensities, totalConflict).toMutableList()
-    }
-
-    densities.sortByDescending { it.value }
-    densities.forEach {
-        val diseases = it.diseases.toString()
-        println("Penyakit $diseases dengan presentase ${it.value * 100}")
-    }
-}
-
 /**
  * return density from first symptom and delete it
  */
@@ -339,8 +316,7 @@ private fun generateDensityFromSymptom(symptoms: MutableList<Symptom>): Density?
 }
 
 /**
- * generate combined density table
- * from densities
+ * generate combined density table from densities
  */
 fun generateCombinedDensityTable(densities: MutableList<Density>): MutableList<MutableList<Density>> {
     val combinedDensityTable: MutableList<MutableList<Density>> = mutableListOf(
@@ -411,8 +387,8 @@ private fun combineDiseases(first: List<Disease>?, second: List<Disease>?): List
 }
 
 /**
- * take the last density and
- * Generate constant density (row 1 in the combined density table)
+ * take the last density then generate constant combined density
+ * (row 1 in the combined density table)
  * and remove its value from original densities
  */
 private fun generateConstantCombinedDensity(densities: MutableList<Density>): MutableList<Density> {
@@ -432,8 +408,7 @@ private fun generateConstantCombinedDensity(densities: MutableList<Density>): Mu
 }
 
 /**
- * remove base density
- * and take combined density from table
+ * remove base density and take combined density from table
  */
 fun generateDensitiesFromCombinedDensityTable(densityTable: MutableList<MutableList<Density>>): MutableList<Density> {
     val densities = mutableListOf<Density>()
@@ -499,6 +474,7 @@ fun calculateDempsterShafer(densities: List<Density>, totalConflict: Double): Li
             if (d1.code == d2.code) continue
             if (d1.diseases != d2.diseases) continue
 
+            // add all value with the same disease
             d1.value += d2.value
 
             checked[d1.code] = true
@@ -509,4 +485,36 @@ fun calculateDempsterShafer(densities: List<Density>, totalConflict: Double): Li
 
     result.forEach { it.value.value /= (1 - totalConflict) }
     return result.values.toList()
+}
+
+fun main() {
+    // TODO: take user input as selected symptoms
+    val selectedSymptoms = symptoms.toMutableList()
+
+    if (selectedSymptoms.size < 2) {
+        val current = selectedSymptoms[0]
+        val diseases = current.diseases.toString()
+        println("Penyakit $diseases dengan persentase ${current.value}")
+        return
+    }
+
+    var densities: MutableList<Density> = mutableListOf(
+        generateDensityFromSymptom(selectedSymptoms)!!,
+    )
+
+    while (selectedSymptoms.size > 0) {
+        densities.add(generateDensityFromSymptom(selectedSymptoms)!!)
+
+        val densityTable: MutableList<MutableList<Density>> = generateCombinedDensityTable(densities)
+        val newDensities: MutableList<Density> = generateDensitiesFromCombinedDensityTable(densityTable)
+        val totalConflict: Double = calculateTotalConflict(newDensities)
+
+        densities = calculateDempsterShafer(newDensities, totalConflict).toMutableList()
+    }
+
+    densities.sortByDescending { it.value }
+    densities.forEach {
+        val diseases = it.diseases.toString()
+        println("Penyakit $diseases dengan persentase ${it.value * 100}")
+    }
 }

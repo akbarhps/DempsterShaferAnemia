@@ -1,4 +1,5 @@
-// first symptoms diseases
+// example from:
+// https://www.teamtrainit.com/demo/algoritma/dempster/perhitungan.php
 //enum class Disease {
 //    SARIAWAN,
 //    INCLUSION_BODY_DISEASE,
