@@ -1,193 +1,292 @@
-val symptoms: List<Symptom> = listOf(
+//val symptoms: List<Symptom> = listOf(
+//    Symptom(
+//        code = "1",
+//        name = "Nafsu Makan Berkurang",
+//        value = 0.2,
+//        diseases = listOf(
+//            Disease.SARIAWAN,
+//            Disease.INCLUSION_BODY_DISEASE,
+//            Disease.SEMBELIT,
+//            Disease.PENYAKIT_KULIT_PARASIT,
+//            Disease.INFLUENZA
+//        )
+//    ),
+//    Symptom(
+//        code = "2",
+//        name = "Wajah Terlihat Lesu",
+//        value = 0.2,
+//        diseases = listOf(
+//            Disease.INCLUSION_BODY_DISEASE,
+//            Disease.SEMBELIT,
+//            Disease.PENYAKIT_KULIT_PARASIT
+//        )
+//    ),
+//    Symptom(
+//        code = "3",
+//        name = "Berat Badan Menurun",
+//        value = 0.5,
+//        diseases = listOf(Disease.SARIAWAN, Disease.PENYAKIT_KULIT_PARASIT)
+//    ),
+//    Symptom(
+//        code = "4",
+//        name = "Pembengkakan Pada Mulut",
+//        value = 0.5,
+//        diseases = listOf(Disease.SARIAWAN, Disease.INFLUENZA)
+//    ),
+//    Symptom(
+//        code = "5",
+//        name = "Pembengkakan Pada Gusi",
+//        value = 0.8,
+//        diseases = listOf(Disease.SARIAWAN)
+//    ),
+//    Symptom(
+//        code = "6",
+//        name = "Perubahan Pada Warna Mulut",
+//        value = 0.7,
+//        diseases = listOf(Disease.SARIAWAN)
+//    ),
+//    Symptom(
+//        code = "7",
+//        name = "Badan Terlihat Membengkak",
+//        value = 0.4,
+//        diseases = listOf(Disease.SEMBELIT)
+//    ),
+//    Symptom(
+//        code = "8",
+//        name = "BAB Jarang",
+//        value = 0.5,
+//        diseases = listOf(Disease.SEMBELIT)
+//    ),
+//    Symptom(
+//        code = "9",
+//        name = "BAB Encer",
+//        value = 0.1,
+//        diseases = listOf(Disease.SEMBELIT)
+//    ),
+//    Symptom(
+//        code = "10",
+//        name = "Muntah-muntah",
+//        value = 0.5,
+//        diseases = listOf(Disease.PENYAKIT_KULIT_PARASIT)
+//    ),
+//    Symptom(
+//        code = "11",
+//        name = "Terdapat Kutu/Caplak di Badan",
+//        value = 0.9,
+//        diseases = listOf(Disease.PENYAKIT_KULIT_PARASIT)
+//    ),
+//    Symptom(
+//        code = "12",
+//        name = "Terdapat Cairan Pada Hidung",
+//        value = 0.8,
+//        diseases = listOf(Disease.INFLUENZA)
+//    ),
+//    Symptom(
+//        code = "13",
+//        name = "Bernafas Dengan Mulut Terbuka",
+//        value = 0.7,
+//        diseases = listOf(Disease.INFLUENZA)
+//    ),
+//    Symptom(
+//        code = "14",
+//        name = "Keluar Cairan Dari Hidung/Mulut",
+//        value = 0.9,
+//        diseases = listOf(Disease.INFLUENZA)
+//    ),
+//    Symptom(
+//        code = "15",
+//        name = "Nafas yang Berbunyi (Mendengkur)",
+//        value = 0.8,
+//        diseases = listOf(Disease.INFLUENZA)
+//    ),
+//    Symptom(
+//        code = "16",
+//        name = "Selalu Melihat Keatas (Stargazing)",
+//        value = 0.9,
+//        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+//    ),
+//    Symptom(
+//        code = "17",
+//        name = "Tidak Dapat Berdiri",
+//        value = 0.6,
+//        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+//    ),
+//    Symptom(
+//        code = "18",
+//        name = "Selalu Tergolek Kearah Belakang",
+//        value = 0.8,
+//        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+//    ),
+//    Symptom(
+//        code = "19",
+//        name = "Tidak Merespon Gerakan",
+//        value = 0.2,
+//        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+//    ),
+//    Symptom(
+//        code = "20",
+//        name = "Besar Mata Pupil Tidak Seimbang",
+//        value = 0.5,
+//        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+//    ),
+//    Symptom(
+//        code = "21",
+//        name = "Mengalami Kelumpuhan",
+//        value = 0.6,
+//        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+//    ),
+//    Symptom(
+//        code = "22",
+//        name = "Lendir Kental Dihidung",
+//        value = 0.9,
+//        diseases = listOf(Disease.INFLUENZA)
+//    ),
+//    Symptom(
+//        code = "23",
+//        name = "Bengkak Dibawah Mulut",
+//        value = 0.6,
+//        diseases = listOf(Disease.INFLUENZA)
+//    ),
+//    Symptom(
+//        code = "24",
+//        name = "Ada Massa Padat Di Kloaka (Anus)",
+//        value = 0.9,
+//        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+//    ),
+//    Symptom(
+//        code = "25",
+//        name = "Rahang Bawah Bernanah",
+//        value = 0.7,
+//        diseases = listOf(Disease.SARIAWAN)
+//    ),
+//    Symptom(
+//        code = "26",
+//        name = "Ada Plak Kemerahan Di Gusi",
+//        value = 0.9,
+//        diseases = listOf(Disease.SARIAWAN)
+//    ),
+//    Symptom(
+//        code = "27",
+//        name = "Ada Benjol Dirahang Atas",
+//        value = 0.4,
+//        diseases = listOf(Disease.SARIAWAN)
+//    ),
+//    Symptom(
+//        code = "28",
+//        name = "Jalannya Berputar-putar",
+//        value = 0.7,
+//        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+//    ),
+//    Symptom(
+//        code = "29",
+//        name = "Ada Jamur Dimulut",
+//        value = 0.2,
+//        diseases = listOf(Disease.SARIAWAN, Disease.INFLUENZA)
+//    ),
+//    Symptom(
+//        code = "30",
+//        name = "Kepala Terpelinting",
+//        value = 0.4,
+//        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+//    ),
+//)
+
+val symptoms = listOf(
     Symptom(
-        code = "1",
-        name = "Nafsu Makan Berkurang",
+        code = "G01",
+        name = "Terasa lemas diseluruh tubuh",
         value = 0.2,
         diseases = listOf(
-            Disease.SARIAWAN,
-            Disease.INCLUSION_BODY_DISEASE,
-            Disease.SEMBELIT,
-            Disease.PENYAKIT_KULIT_PARASIT,
-            Disease.INFLUENZA
-        )
+            Disease.ANEMIA_APLASTIK, Disease.ANEMIA_DEFISIENSI_ZAT_BESI, Disease.ANEMIA_KRONIS
+        ),
     ),
     Symptom(
-        code = "2",
-        name = "Wajah Terlihat Lesu",
+        code = "G02",
+        name = "Merasa sakit kepala",
         value = 0.2,
         diseases = listOf(
-            Disease.INCLUSION_BODY_DISEASE,
-            Disease.SEMBELIT,
-            Disease.PENYAKIT_KULIT_PARASIT
-        )
+            Disease.ANEMIA_APLASTIK, Disease.ANEMIA_DEFISIENSI_ZAT_BESI, Disease.ANEMIA_KRONIS
+        ),
     ),
     Symptom(
-        code = "3",
-        name = "Berat Badan Menurun",
-        value = 0.5,
-        diseases = listOf(Disease.SARIAWAN, Disease.PENYAKIT_KULIT_PARASIT)
-    ),
-    Symptom(
-        code = "4",
-        name = "Pembengkakan Pada Mulut",
-        value = 0.5,
-        diseases = listOf(Disease.SARIAWAN, Disease.INFLUENZA)
-    ),
-    Symptom(
-        code = "5",
-        name = "Pembengkakan Pada Gusi",
-        value = 0.8,
-        diseases = listOf(Disease.SARIAWAN)
-    ),
-    Symptom(
-        code = "6",
-        name = "Perubahan Pada Warna Mulut",
-        value = 0.7,
-        diseases = listOf(Disease.SARIAWAN)
-    ),
-    Symptom(
-        code = "7",
-        name = "Badan Terlihat Membengkak",
-        value = 0.4,
-        diseases = listOf(Disease.SEMBELIT)
-    ),
-    Symptom(
-        code = "8",
-        name = "BAB Jarang",
-        value = 0.5,
-        diseases = listOf(Disease.SEMBELIT)
-    ),
-    Symptom(
-        code = "9",
-        name = "BAB Encer",
-        value = 0.1,
-        diseases = listOf(Disease.SEMBELIT)
-    ),
-    Symptom(
-        code = "10",
-        name = "Muntah-muntah",
-        value = 0.5,
-        diseases = listOf(Disease.PENYAKIT_KULIT_PARASIT)
-    ),
-    Symptom(
-        code = "11",
-        name = "Terdapat Kutu/Caplak di Badan",
-        value = 0.9,
-        diseases = listOf(Disease.PENYAKIT_KULIT_PARASIT)
-    ),
-    Symptom(
-        code = "12",
-        name = "Terdapat Cairan Pada Hidung",
-        value = 0.8,
-        diseases = listOf(Disease.INFLUENZA)
-    ),
-    Symptom(
-        code = "13",
-        name = "Bernafas Dengan Mulut Terbuka",
-        value = 0.7,
-        diseases = listOf(Disease.INFLUENZA)
-    ),
-    Symptom(
-        code = "14",
-        name = "Keluar Cairan Dari Hidung/Mulut",
-        value = 0.9,
-        diseases = listOf(Disease.INFLUENZA)
-    ),
-    Symptom(
-        code = "15",
-        name = "Nafas yang Berbunyi (Mendengkur)",
-        value = 0.8,
-        diseases = listOf(Disease.INFLUENZA)
-    ),
-    Symptom(
-        code = "16",
-        name = "Selalu Melihat Keatas (Stargazing)",
-        value = 0.9,
-        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
-    ),
-    Symptom(
-        code = "17",
-        name = "Tidak Dapat Berdiri",
-        value = 0.6,
-        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
-    ),
-    Symptom(
-        code = "18",
-        name = "Selalu Tergolek Kearah Belakang",
-        value = 0.8,
-        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
-    ),
-    Symptom(
-        code = "19",
-        name = "Tidak Merespon Gerakan",
+        code = "G03",
+        name = "Nyeri pada dada",
         value = 0.2,
-        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+        diseases = listOf(
+            Disease.ANEMIA_DEFISIENSI_ZAT_BESI
+        ),
     ),
     Symptom(
-        code = "20",
-        name = "Besar Mata Pupil Tidak Seimbang",
-        value = 0.5,
-        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
-    ),
-    Symptom(
-        code = "21",
-        name = "Mengalami Kelumpuhan",
-        value = 0.6,
-        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
-    ),
-    Symptom(
-        code = "22",
-        name = "Lendir Kental Dihidung",
-        value = 0.9,
-        diseases = listOf(Disease.INFLUENZA)
-    ),
-    Symptom(
-        code = "23",
-        name = "Bengkak Dibawah Mulut",
-        value = 0.6,
-        diseases = listOf(Disease.INFLUENZA)
-    ),
-    Symptom(
-        code = "24",
-        name = "Ada Massa Padat Di Kloaka (Anus)",
-        value = 0.9,
-        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
-    ),
-    Symptom(
-        code = "25",
-        name = "Rahang Bawah Bernanah",
-        value = 0.7,
-        diseases = listOf(Disease.SARIAWAN)
-    ),
-    Symptom(
-        code = "26",
-        name = "Ada Plak Kemerahan Di Gusi",
-        value = 0.9,
-        diseases = listOf(Disease.SARIAWAN)
-    ),
-    Symptom(
-        code = "27",
-        name = "Ada Benjol Dirahang Atas",
-        value = 0.4,
-        diseases = listOf(Disease.SARIAWAN)
-    ),
-    Symptom(
-        code = "28",
-        name = "Jalannya Berputar-putar",
-        value = 0.7,
-        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
-    ),
-    Symptom(
-        code = "29",
-        name = "Ada Jamur Dimulut",
+        code = "G04",
+        name = "Demam",
         value = 0.2,
-        diseases = listOf(Disease.SARIAWAN, Disease.INFLUENZA)
+        diseases = listOf(
+            Disease.ANEMIA_APLASTIK, Disease.ANEMIA_KRONIS
+        ),
     ),
     Symptom(
-        code = "30",
-        name = "Kepala Terpelinting",
-        value = 0.4,
-        diseases = listOf(Disease.INCLUSION_BODY_DISEASE)
+        code = "G05",
+        name = "Keluar darah dari hidung",
+        value = 0.2,
+        diseases = listOf(
+            Disease.ANEMIA_APLASTIK,
+        ),
+    ),
+    Symptom(
+        code = "G06",
+        name = "Kaki dan tangan terasa dingin",
+        value = 0.2,
+        diseases = listOf(
+            Disease.ANEMIA_DEFISIENSI_ZAT_BESI, Disease.ANEMIA_KRONIS
+        ),
+    ),
+    Symptom(
+        code = "G07",
+        name = "Kesemutan pada kaki",
+        value = 0.2,
+        diseases = listOf(
+            Disease.ANEMIA_DEFISIENSI_ZAT_BESI
+        ),
+    ),
+    Symptom(
+        code = "G08",
+        name = "Kulit tampak pucat",
+        value = 0.2,
+        diseases = listOf(
+            Disease.ANEMIA_APLASTIK, Disease.ANEMIA_DEFISIENSI_ZAT_BESI
+        ),
+    ),
+    Symptom(
+        code = "G09",
+        name = "Merasakan muntah-muntah",
+        value = 0.2,
+        diseases = listOf(
+            Disease.ANEMIA_APLASTIK, Disease.ANEMIA_KRONIS
+        ),
+    ),
+    Symptom(
+        code = "G10",
+        name = "Nyeri panggul hinggu ke paha",
+        value = 0.2,
+        diseases = listOf(
+            Disease.ANEMIA_DEFISIENSI_ZAT_BESI, Disease.ANEMIA_KRONIS
+        ),
+    ),
+    Symptom(
+        code = "G11",
+        name = "Nyeri ulu hati",
+        value = 0.2,
+        diseases = listOf(
+            Disease.ANEMIA_APLASTIK, Disease.ANEMIA_KRONIS
+        ),
+    ),
+    Symptom(
+        code = "G12",
+        name = "BAB mengeluarkan darah",
+        value = 0.2,
+        diseases = listOf(
+            Disease.ANEMIA_KRONIS
+        ),
     ),
 )
 
@@ -209,8 +308,8 @@ fun main() {
         densities.add(generateDensityFromSymptom(selectedSymptoms)!!)
 
         val densityTable: MutableList<MutableList<Density>> = generateCombinedDensityTable(densities)
-        val newDensities: MutableList<Density> = generateDensitiesFromCombinedTable(densityTable)
-        val totalConflict: Double = countTotalConflict(newDensities)
+        val newDensities: MutableList<Density> = generateDensitiesFromCombinedDensityTable(densityTable)
+        val totalConflict: Double = calculateTotalConflict(newDensities)
 
         densities = calculateDempsterShafer(newDensities, totalConflict).toMutableList()
     }
@@ -264,16 +363,12 @@ fun generateCombinedDensityTable(densities: MutableList<Density>): MutableList<M
         val baseCombinedDensity = if (i >= densities.size) {
             currentValue = 1 - totalValue
             Density(
-                code = "(Theta)",
-                diseases = null,
-                value = currentValue
+                code = "(Theta)", diseases = null, value = currentValue
             )
         } else {
             currentValue = currentDensity!!.value
             Density(
-                code = currentDensity.code,
-                diseases = currentDensity.diseases,
-                value = currentValue
+                code = currentDensity.code, diseases = currentDensity.diseases, value = currentValue
             )
         }
 
@@ -325,14 +420,10 @@ private fun generateConstantCombinedDensity(densities: MutableList<Density>): Mu
 
     val result = mutableListOf(
         Density(
-            code = lastDensity.code,
-            diseases = lastDensity.diseases,
-            value = lastDensity.value
+            code = lastDensity.code, diseases = lastDensity.diseases, value = lastDensity.value
         ),
         Density(
-            code = "${lastDensity.code} (Theta)",
-            diseases = null,
-            value = 1 - lastDensity.value
+            code = "${lastDensity.code} (Theta)", diseases = null, value = 1 - lastDensity.value
         ),
     )
 
@@ -344,7 +435,7 @@ private fun generateConstantCombinedDensity(densities: MutableList<Density>): Mu
  * remove base density
  * and take combined density from table
  */
-fun generateDensitiesFromCombinedTable(densityTable: MutableList<MutableList<Density>>): MutableList<Density> {
+fun generateDensitiesFromCombinedDensityTable(densityTable: MutableList<MutableList<Density>>): MutableList<Density> {
     val densities = mutableListOf<Density>()
 
     densityTable.removeAt(0)
@@ -375,7 +466,7 @@ fun generateDensitiesFromCombinedTable(densityTable: MutableList<MutableList<Den
  * then it is a conflict, count all conflict from densities
  * if density is null then it is a theta
  */
-fun countTotalConflict(densities: MutableList<Density>): Double {
+fun calculateTotalConflict(densities: MutableList<Density>): Double {
     var totalConflict = 0.0
 
     for (density in densities) {
